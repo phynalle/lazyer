@@ -1,3 +1,4 @@
+from __future__ import print_function
 from functools import wraps
 
 
@@ -70,3 +71,6 @@ def encode(val):
     if isinstance(val, (tuple, set, list)):
         return ' '.join(encode(e) for e in val)
     return str(val)
+
+def print_pair(key, val):
+    print ('{}: {}'.format(key, val))

@@ -1,7 +1,7 @@
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from lazyer.utils import encode, true, call_unpacked
+from lazyer.utils import call_unpacked, encode, print_pair, true
 
 class NoInitializer(object):
     pass
@@ -84,15 +84,15 @@ class Node(object):
         partition = Partition(self, n, func)
         return partition.forwards
 
+    def inspect(self, func=print_pair, interval=1):
+        from lazyer.ops import Inspect
+        return Inspect(self, func, interval)
+
     def get(self, collection=dict):
         if collection is dict:
             return {k: v for k, v in self}
         else:
             return collection(v for _, v in self)
-
-    def inspect(self, func):
-        from lazyer.ops import Inspect
-        return Inspect(self, func)
 
     def write(self, filename):
         with open(filename, 'w') as f:
