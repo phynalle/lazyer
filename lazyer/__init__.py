@@ -83,6 +83,10 @@ class Node(object):
         else:
             return collection(v for _, v in self)
 
+    def inspect(self, func):
+        from lazyer.ops import Inspect
+        return Inspect(self, func)
+
     def write(self, filename):
         with open(filename, 'w') as f:
             for kv in self:
