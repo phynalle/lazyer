@@ -6,3 +6,4 @@ class Forward(Node):
 
     def next(self):
         return self.node.next()
+

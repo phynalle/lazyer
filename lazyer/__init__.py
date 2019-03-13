@@ -63,3 +63,8 @@ class Node(object):
     def sort(self):
         from lazyer.ops import Sort
         return Sort(self)
+
+    def partition(self, func):
+        from lazyer.ops import Partition
+        partition = Partition(self, func)
+        return partition.forwards
