@@ -67,9 +67,9 @@ def false(*args):
     return False
 
 
-def encode(val):
+def make_flattened_str(val):
     if isinstance(val, (tuple, set, list)):
-        return ' '.join(encode(e) for e in val)
+        return ' '.join(make_flattend_str(e) for e in val)
     return str(val)
 
 def print_pair(key, val):

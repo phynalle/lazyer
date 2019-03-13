@@ -1,7 +1,7 @@
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from lazyer.utils import call_unpacked, encode, print_pair, true
+from lazyer.utils import call_unpacked, make_flattened_str, print_pair, true
 
 class NoInitializer(object):
     pass
@@ -94,7 +94,7 @@ class Node(object):
         else:
             return collection(v for _, v in self)
 
-    def write(self, filename):
+    def write(self, filename, encode=make_flattened_str):
         with open(filename, 'w') as f:
             for kv in self:
                 f.write(encode(kv) + '\n')
