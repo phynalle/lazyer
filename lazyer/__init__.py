@@ -1,7 +1,7 @@
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from lazyer.utils import encode, true
+from lazyer.utils import encode, true, call_unpacked
 
 class NoInitializer(object):
     pass
@@ -46,6 +46,9 @@ class Node(object):
     def map(self, func):
         from lazyer.ops import Map
         return Map(self, func)
+
+    def remap(self, func):
+        return self.unmap.map(call_unpacked(f))
 
     def unmap(self):
         from lazyer.ops import Unmap

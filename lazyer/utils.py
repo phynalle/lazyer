@@ -1,3 +1,19 @@
+from functools import wraps
+
+
+def call_packed(f):
+    @wraps(f)
+    def wrapper(*args):
+        return f(args)
+    return wrap
+
+
+def call_unpacked(f):
+    @wraps(f)
+    def wrapper(args):
+        return f(*args)
+    return wrap
+
 def includes(keys):
     keys = set(keys)
     def func(key, val):
@@ -28,28 +44,29 @@ def second(a, b):
     return b
 
 
+def swap(a, b):
+    return b, a
+
+
 def select_key(kv):
-    k, _ = kv
-    return k
+    # return kv[0]
+    return call_unpacked(first)(kv)
 
 
 def select_value(kv):
-    _, v = kv
-    return v
+    # return kv[1]
+    return call_unpacked(second)(kv)
 
 
-def swap(tup):
-    a, b = tup
-    return b, a
+def true(*args):
+    return True
+
+
+def false(*args):
+    return False
 
 
 def encode(val):
     if isinstance(val, (tuple, set, list)):
         return ' '.join(encode(e) for e in val)
     return str(val)
-
-def true(*args):
-    return True
-
-def false(*args):
-    return False
