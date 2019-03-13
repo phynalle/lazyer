@@ -19,24 +19,25 @@ class Pair(object):
     def v(self):
         return self._val
 
-
     @property
     def tup(self):
         return self.k, self.v
 
 
 class Node(object):
-    def next(self):
+    def next_pair(self):
         raise NotImplementedError
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        pair = self.next()
+        pair = self.next_pair()
         if pair is None:
             raise StopIteration
         return (pair.k, pair.v)
+
+    next = __next__
 
     def transform(self, func):
         from lazyer.ops import Transform

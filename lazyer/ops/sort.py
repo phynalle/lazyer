@@ -21,7 +21,7 @@ class Sort(Node):
             values.sort()
         self.is_sorted = True
 
-    def try_next(self):
+    def try_next_pair(self):
         if not self.keys:
             raise StopIteration
         key = self.keys[0]
@@ -35,9 +35,9 @@ class Sort(Node):
             return None
         return Pair(key, values.pop(0))
 
-    def next(self):
+    def next_pair(self):
         self.sort()
-        pair = self.try_next()
+        pair = self.try_next_pair()
         while pair is None:
-            pair = self.try_next()
+            pair = self.try_next_pair()
         return pair

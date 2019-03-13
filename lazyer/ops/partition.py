@@ -5,10 +5,11 @@ class Partition(Node):
     def __init__(self, node, n, func):
         self.node = node
         self.func = func
-        self.forwards = (BufferedForward(self) for _ in range(n))
+        self.forwards = [BufferedForward(self) for _ in range(n)]
 
-    def next(self):
-        self.func(key, value, self.forwards)
+    def next_pair(self):
+        key, val = self.node.next_pair().tup
+        self.func(key, val, self.forwards)
 
 
 class BufferedForward(Forward):
@@ -16,10 +17,10 @@ class BufferedForward(Forward):
         super(BufferedForward, self).__init__(node)
         self.buffer = []
 
-    def next(self):
+    def next_pair(self):
         while self.is_empty():
-            self.node.next()
-        return self.buffer.pop(0)
+            self.node.next_pair()
+        return Pair(None, self.buffer.pop(0))
 
     def append(self, pair):
         self.buffer.append(pair)
@@ -28,4 +29,4 @@ class BufferedForward(Forward):
         self.buffer.extend(pairs)
 
     def is_empty(self):
-        return bool(self.buffer)
+        return not bool(self.buffer)

@@ -5,8 +5,8 @@ class Filter(Node):
         self.node = node
         self.predicate = predicate
 
-    def next(self):
-        pair = self.node.next()
+    def next_pair(self):
+        pair = self.node.next_pair()
         while not self.predicate(pair.k, pair.v):
-            pair = self.node.next()
+            pair = self.node.next_pair()
         return pair

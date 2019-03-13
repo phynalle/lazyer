@@ -6,6 +6,7 @@ class Reduce(Node):
         self.node = node
         self.func = func
         self.acc = {}
+        self.keys = []
         self.initializer = initializer
         self.is_reduced = False
 
@@ -14,6 +15,7 @@ class Reduce(Node):
             return
         for key, val in self.node:
             if key not in self.acc:
+                self.keys.append(key)
                 if self.initializer is NoInitializer:
                     self.acc[key] = val
                     continue
@@ -22,9 +24,11 @@ class Reduce(Node):
             self.acc[key] = self.func(self.acc[key], val)
         self.is_reduced = True
 
-    def next(self):
+    def next_pair(self):
         self.reduce()
-        k = next(iter(self.acc))
+        if not self.keys:
+            raise StopIteration
+        k = self.keys.pop(0)
         v = self.acc.pop(k)
         return Pair(k, v)
 

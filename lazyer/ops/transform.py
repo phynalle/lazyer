@@ -5,6 +5,6 @@ class Transform(Node):
         self.node = node
         self.func = func
 
-    def next(self):
-        key, val = self.node.next().tup
+    def next_pair(self):
+        key, val = self.node.next_pair().tup
         return Pair(key, self.func(val))

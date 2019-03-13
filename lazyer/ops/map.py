@@ -6,8 +6,8 @@ class Map(Node):
         self.node = node
         self.func = func
 
-    def next(self):
-        key, val = self.node.next().tup
+    def next_pair(self):
+        key, val = self.node.next_pair().tup
         if key is not None:
             raise AlreadyMapped
         key, val = self.func(val)
