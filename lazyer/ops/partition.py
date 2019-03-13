@@ -2,7 +2,7 @@ from lazyer import Node, Pair
 from lazyer.ops import Forward
 
 class Partition(Node):
-    def __init__(self, node, func, n):
+    def __init__(self, node, n, func):
         self.node = node
         self.func = func
         self.forwards = (BufferedForward(self) for _ in range(n))
