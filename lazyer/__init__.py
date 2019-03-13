@@ -70,6 +70,14 @@ class Node(object):
         from lazyer.ops import Filter
         return Filter(self, predicate)
 
+    def take(self, n):
+        from lazyer.ops import Take
+        return Take(self, n)
+
+    def skip(self, n):
+        from lazyer.ops import Skip
+        return Skip(self, n)
+
     def join(self, *nodes, **kwargs):
         from lazyer.ops import Join
         outer = bool(kwargs.get('outer', False))
