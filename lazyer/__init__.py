@@ -1,6 +1,8 @@
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
+from lazyer.utils import encode
+
 class NoInitializer(object):
     pass
 
@@ -72,3 +74,14 @@ class Node(object):
         from lazyer.ops import Partition
         partition = Partition(self, n, func)
         return partition.forwards
+
+    def get(self, collection=dict):
+        if collection is dict:
+            return {k: v for k, v in self}
+        else:
+            return collection(v for _, v in self)
+
+    def write(self, filename):
+        with open(filename) as f:
+            for kv in self:
+                f.write(encode(kv) + '\n')
