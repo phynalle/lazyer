@@ -21,8 +21,11 @@ class BufferedForward(Forward):
             self.node.next()
         return self.buffer.pop(0)
 
-    def append(self, *pair):
-        self.buffer.extend(pair)
+    def append(self, pair):
+        self.buffer.append(pair)
+
+    def extend(self, *pairs):
+        self.buffer.extend(pairs)
 
     def is_empty(self):
         return bool(self.buffer)
