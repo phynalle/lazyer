@@ -1,7 +1,7 @@
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from lazyer.utils import call_unpacked, make_flattened_str, print_pair, true
+from lazyer.utils import call_unpacked, identity, make_flattened_str, print_pair, true
 
 class NoInitializer(object):
     pass
@@ -43,7 +43,7 @@ class Node(object):
         from lazyer.ops import Transform
         return Transform(self, func)
 
-    def map(self, func):
+    def map(self, func=identity):
         from lazyer.ops import Map
         return Map(self, func)
 

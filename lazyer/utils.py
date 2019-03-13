@@ -72,5 +72,6 @@ def make_flattened_str(val):
         return ' '.join(make_flattend_str(e) for e in val)
     return str(val)
 
+
 def print_pair(key, val):
     print ('{}: {}'.format(key, val))
