@@ -1,3 +1,4 @@
+import heapq
 from collections import defaultdict
 from lazyer import Node, Pair
 
@@ -7,6 +8,7 @@ class Sort(Node):
         self.acc = defaultdict(list)
         self.keys = []
         self.is_sorted = False
+        self.current = None
 
     def sort(self):
         if self.is_sorted:
@@ -14,26 +16,25 @@ class Sort(Node):
         unique_keys = set()
         for key, val in self.node:
             if key not in unique_keys:
-                self.unique_keys.add(key)
+                unique_keys.add(key)
                 self.keys.append(key)
-            self.acc[key].append(val)
-        for _, values in self.acc:
-            values.sort()
+            heapq.heappush(self.acc[key], val)
         self.is_sorted = True
 
     def try_next_pair(self):
-        if not self.keys:
-            raise StopIteration
-        key = self.keys[0]
-        if key not in self.acc:
-            # Unreachable
-            self.keys.pop(0)
-            return None
-        values = self.acc[key]
+        if self.current is None:
+            if not self.keys:
+                raise StopIteration
+            key = self.keys.pop(0)
+            if key not in self.acc:
+                # Unreachable
+                return None
+            self.current = (key, self.acc.pop(key))
+        key, values = self.current
         if not values:
-            self.keys.pop(0)
+            self.current = None
             return None
-        return Pair(key, values.pop(0))
+        return Pair(key, heapq.heappop(values))
 
     def next_pair(self):
         self.sort()
