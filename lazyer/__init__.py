@@ -82,6 +82,6 @@ class Node(object):
             return collection(v for _, v in self)
 
     def write(self, filename):
-        with open(filename) as f:
+        with open(filename, 'w') as f:
             for kv in self:
                 f.write(encode(kv) + '\n')
