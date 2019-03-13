@@ -1,4 +1,4 @@
-import itertools
+from builtins import zip
 from lazyer import Node, Pair
 from lazyer.exceptions import DuplicatedKey, NodeException
 
@@ -17,11 +17,11 @@ class Join(Node):
     def join(self):
         if self.is_joined:
             return
-        for i, (acc, node) in enumerate(itertools.izip(self.accs, self.nodes)):
+        for i, (acc, node) in enumerate(zip(self.accs, self.nodes)):
             for key, val in node:
+                if key in acc:
+                    raise DuplicatedKey('node: {}'.format(i))
                 if i == 0:
-                    if key in acc:
-                        raise DuplicatedKey
                     self.keys.append(key)
                 acc[key] = val
         self.is_joined = True

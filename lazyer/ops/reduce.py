@@ -31,4 +31,3 @@ class Reduce(Node):
         k = self.keys.pop(0)
         v = self.acc.pop(k)
         return Pair(k, v)
-
