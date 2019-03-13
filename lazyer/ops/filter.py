@@ -3,7 +3,7 @@ from lazyer import Node, Pair
 class Filter(Node):
     def __init__(self, node, predicate):
         self.node = node
-        self.predicate = func
+        self.predicate = predicate
 
     def next(self):
         pair = self.node.next()
