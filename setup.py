@@ -7,5 +7,4 @@ setup(
     author = 'Gyeongwan Koh',
     author_email = 'gwkoh@nexon.co.kr',
     install_requires = [],
-    packages = find_packages('tests'),
-)
+    packages = find_packages())
