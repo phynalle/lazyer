@@ -63,9 +63,10 @@ class Node(object):
         from lazyer.ops import Filter
         return Filter(self, predicate)
 
-    def join(self, *nodes):
+    def join(self, *nodes, **kwargs):
         from lazyer.ops import Join
-        return Join(self, *nodes)
+        outer = bool(kwargs.get('outer', False))
+        return Join(outer, self, *nodes)
 
     def sort(self):
         from lazyer.ops import Sort

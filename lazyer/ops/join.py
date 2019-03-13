@@ -3,12 +3,13 @@ from lazyer import Node, Pair
 from lazyer.exceptions import DuplicatedKey, NodeException
 
 class Join(Node):
-    def __init__(self, *nodes):
+    def __init__(self, outer, *nodes):
         if len(nodes) < 2:
             raise NodeException('not enough nodes')
         for node in nodes:
             assert isinstance(node, Node)
         self.nodes = nodes
+        self.outer = outer
         self.accs = [{} for _ in nodes]
         self.keys = []
         self.is_joined = False
@@ -30,9 +31,10 @@ class Join(Node):
             raise StopIteration
         values = []
         key = self.keys.pop()
-        values = [acc.pop(key) for acc in self.accs if key in acc]
-        if len(values) != len(self.accs):
-            return None
+        for acc in self.accs:
+            if key not in acc and not self.outer:
+                return None
+            values.append(acc.pop(key, None))
         return Pair(key, values)
 
     def next_pair(self):
