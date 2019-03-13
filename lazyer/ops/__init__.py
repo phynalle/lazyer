@@ -1,3 +1,4 @@
+from lazyer.ops.chain import Chain
 from lazyer.ops.filter import Filter
 from lazyer.ops.forward import Forward
 from lazyer.ops.join import Join
@@ -10,5 +11,5 @@ from lazyer.ops.transform import Transform
 from lazyer.ops.unmap import Unmap
 
 
-__all__ = ['Filter', 'Forward', 'Join', 'Map', 'Partition', 'Reduce', 'Sink',
-    'Sort', 'Transform', 'Unmap']
+__all__ = ['Chain', 'Filter', 'Forward', 'Join', 'Map', 'Partition', 'Reduce',
+        'Sink', 'Sort', 'Transform', 'Unmap']

@@ -52,6 +52,10 @@ class Node(object):
         from lazyer.ops import Reduce
         return Reduce(self, func, initializer)
 
+    def chain(self, *nodes):
+        from lazyer.ops import Chain
+        return Chain(self, *nodes)
+
     def filter(self, predicate):
         from lazyer.ops import Filter
         return Filter(self, predicate)

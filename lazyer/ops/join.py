@@ -3,7 +3,7 @@ from lazyer.exceptions import DuplicatedKey, NodeException
 
 class Join(Node):
     def __init__(self, *nodes):
-        if len(nodes) <= 1:
+        if len(nodes) < 2:
             raise NodeException('not enough nodes')
         self.nodes = nodes
         self.accs = [{} for _ in nodes]
