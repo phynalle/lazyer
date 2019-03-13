@@ -28,15 +28,18 @@ def second(a, b):
     return b
 
 
-def select_key((a, b)):
-    return a
+def select_key(kv):
+    k, _ = kv
+    return k
 
 
-def select_value((a, b)):
-    return b
+def select_value(kv):
+    _, v = kv
+    return v
 
 
-def swap((a, b)):
+def swap(tup):
+    a, b = tup
     return b, a
 
 
@@ -44,3 +47,9 @@ def encode(val):
     if isinstance(val, (tuple, set, list)):
         return ' '.join(encode(e) for e in val)
     return str(val)
+
+def true(*args):
+    return True
+
+def false(*args):
+    return False

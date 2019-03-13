@@ -1,7 +1,7 @@
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from lazyer.utils import encode
+from lazyer.utils import encode, true
 
 class NoInitializer(object):
     pass
@@ -54,6 +54,10 @@ class Node(object):
     def reduce(self, func, initializer=NoInitializer):
         from lazyer.ops import Reduce
         return Reduce(self, func, initializer)
+
+    def unique(self, func=true):
+        from lazyer.ops import Unique
+        return Unique(self, func)
 
     def chain(self, *nodes):
         from lazyer.ops import Chain
