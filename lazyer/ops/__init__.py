@@ -10,10 +10,12 @@ from lazyer.ops.sink import Sink
 from lazyer.ops.skip import Skip
 from lazyer.ops.sort import Sort
 from lazyer.ops.take import Take
+from lazyer.ops.tee import Tee
 from lazyer.ops.transform import Transform
 from lazyer.ops.unmap import Unmap
 from lazyer.ops.unique import Unique
 
 
 __all__ = ['Chain', 'Filter', 'Forward', 'Inspect', 'Join', 'Map', 'Partition',
-        'Reduce', 'Sink', 'Skip', 'Sort', 'Take', 'Transform', 'Unmap', 'Unique']
+        'Reduce', 'Sink', 'Skip', 'Sort', 'Take', 'Tee', 'Transform', 'Unmap',
+        'Unique']

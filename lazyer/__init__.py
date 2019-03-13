@@ -39,6 +39,10 @@ class Node(object):
 
     next = __next__
 
+    def tee(self, n=2):
+        from lazyer.ops import Tee
+        return Tee(self, n).cloneds
+
     def transform(self, func):
         from lazyer.ops import Transform
         return Transform(self, func)
