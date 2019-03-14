@@ -10,7 +10,7 @@ class Unique(Node):
         pair = self.node.next_pair()
         if pair.k in self.keys:
             return None
-        if self.func(pair.k, pair.v):
+        if self.func(pair.v):
             self.keys.add(pair.k)
         return pair
 
