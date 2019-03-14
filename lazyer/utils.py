@@ -2,6 +2,18 @@ from __future__ import print_function
 from functools import wraps
 
 
+def compose(*fs):
+    def wrapper(*args):
+        for f in fs:
+            r = f(*args)
+            try:
+                args = iter(r)
+            except TypeError:
+                args = r,
+        return args
+    return wrapper
+
+
 def call_packed(f):
     @wraps(f)
     def wrapper(*args):
