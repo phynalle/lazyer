@@ -13,7 +13,7 @@ def call_unpacked(f):
     @wraps(f)
     def wrapper(args):
         return f(*args)
-    return wrap
+    return wrapper
 
 def includes(keys):
     keys = set(keys)
@@ -69,7 +69,7 @@ def false(*args):
 
 def make_flattened_str(val):
     if isinstance(val, (tuple, set, list)):
-        return ' '.join(make_flattend_str(e) for e in val)
+        return ' '.join(make_flattened_str(e) for e in val)
     return str(val)
 
 

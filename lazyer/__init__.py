@@ -52,7 +52,7 @@ class Node(object):
         return Map(self, func)
 
     def remap(self, func):
-        return self.unmap.map(call_unpacked(f))
+        return self.unmap().map(call_unpacked(func))
 
     def unmap(self):
         from lazyer.ops import Unmap
