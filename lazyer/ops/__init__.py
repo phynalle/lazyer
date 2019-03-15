@@ -1,7 +1,9 @@
 from lazyer.ops.chain import Chain
+from lazyer.ops.differ import Differ
 from lazyer.ops.filter import Filter
 from lazyer.ops.forward import Forward
 from lazyer.ops.inspect import Inspect
+from lazyer.ops.intersect import Intersect
 from lazyer.ops.join import Join
 from lazyer.ops.map import Map
 from lazyer.ops.partition import Partition
@@ -16,6 +18,6 @@ from lazyer.ops.unmap import Unmap
 from lazyer.ops.unique import Unique
 
 
-__all__ = ['Chain', 'Filter', 'Forward', 'Inspect', 'Join', 'Map', 'Partition',
-        'Reduce', 'Sink', 'Skip', 'Sort', 'Take', 'Tee', 'Transform', 'Unmap',
-        'Unique']
+__all__ = ['Chain', 'Differ', 'Filter', 'Forward', 'Inspect', 'Intersect',
+        'Join', 'Map', 'Partition', 'Reduce', 'Sink', 'Skip', 'Sort', 'Take',
+        'Tee', 'Transform', 'Unmap', 'Unique']

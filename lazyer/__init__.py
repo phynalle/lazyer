@@ -87,6 +87,23 @@ class Node(object):
         outer = bool(kwargs.get('outer', False))
         return Join(outer, self, *nodes)
 
+    def union(self, *nodes, **kwargs):
+        is_all = kwargs.get('all', False)
+        chained = self
+        for node in nodes:
+            chained = chained.chain(node)
+            if not is_all:
+                chained = chained.unique()
+        return chained
+
+    def intersect(self, *nodes):
+        from lazyer.ops import Intersect
+        return Intersect(self, *nodes)
+
+    def differ(self, *nodes):
+        from lazyer.ops import Differ
+        return Differ(self, *nodes)
+
     def sort(self):
         from lazyer.ops import Sort
         return Sort(self)
@@ -99,6 +116,8 @@ class Node(object):
     def inspect(self, func=print_pair, interval=1):
         from lazyer.ops import Inspect
         return Inspect(self, func, interval)
+
+
 
     def get(self, collection=dict):
         if collection is dict:
