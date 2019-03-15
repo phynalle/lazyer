@@ -37,7 +37,7 @@ class Intersect(Node):
         return Pair(key, values)
 
     def next_pair(self):
-        self._intersected()
+        self._intersect()
         pair = self.try_next_pair()
         while pair is None:
             pair = self.try_next_pair()

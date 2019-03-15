@@ -5,4 +5,4 @@ class Sink(Node):
         self.iterable = iter(iterable)
 
     def next_pair(self):
-        return Pair(None, next(self.gen))
+        return Pair(None, next(self.iterable))

@@ -56,7 +56,7 @@ class Join(Node):
                     yield Pair(key, (left_val, right_val))
             except KeyError:
                 if self.left_init is no_init:
-                    yield Pair(key, (self.left_init, val))
+                    yield Pair(key, (self.left_init, right_val))
         if self.right_init is not no_init:
             for key, left_vals in viewitems(self.left_vals):
                 if key in right_keys:
