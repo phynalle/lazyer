@@ -1,5 +1,5 @@
-from collections import defaultdict
-from six import viewitems
+from collections import defaultdict, OrderedDict
+from six import viewitems, viewkeys
 from builtins import zip
 from lazyer import Node, Pair, no_init
 from lazyer.exceptions import DuplicatedKey, NodeException
@@ -11,7 +11,7 @@ class Join(Node):
         self.left_init = no_init
         self.right_init = no_init
         self.left_is_consumed = False
-        self.left_vals = defaultdict(list)
+        self.left_vals = OrderedDict()
         self.gen_pair = iter(self.join_pair())
         if mode == 'inner':
             pass
@@ -25,11 +25,11 @@ class Join(Node):
             raise NodeException('Unsupported mode')
 
     def left_outer(self):
-        self.left_init = None
+        self.right_init = None
         return self
 
     def right_outer(self):
-        self.right_init = None
+        self.left_init = None
         return self
 
     def full(self):
@@ -41,15 +41,19 @@ class Join(Node):
         if self.left_is_consumed:
             return
         for key, val in self.left:
-            self.left_vals[key].append(val)
+            self.left_vals.setdefault(key, []).append(val)
         self.left_is_counsumed = True
 
     def join_pair(self):
         # reference link:
         # https://github.com/pytoolz/toolz/blob/2a6ef533854bd0bb383889071059f7ca3690c005/toolz/itertoolz.py#L812https://github.com/pytoolz/toolz/blob/2a6ef533854bd0bb383889071059f7ca3690c005/toolz/itertoolz.py#L812
-        right_keys = set()
+        # NOTE: joins_left_outer is used for the optimization.
+        joins_left_outer = self.right_init is not no_init
+        if joins_left_outer:
+            right_keys = set()
         for key, right_val in self.right:
-            right_keys.add(key)
+            if joins_left_outer:
+                right_keys.add(key)
             try:
                 left_vals = self.left_vals[key]
                 for left_val in left_vals:
@@ -57,7 +61,7 @@ class Join(Node):
             except KeyError:
                 if self.left_init is no_init:
                     yield Pair(key, (self.left_init, right_val))
-        if self.right_init is not no_init:
+        if joins_left_outer:
             for key, left_vals in viewitems(self.left_vals):
                 if key in right_keys:
                     continue
