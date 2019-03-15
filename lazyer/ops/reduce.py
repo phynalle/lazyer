@@ -10,7 +10,7 @@ class Reduce(Node):
         self.initializer = initializer
         self.is_reduced = False
 
-    def reduce(self):
+    def _reduce(self):
         if self.is_reduced:
             return
         for key, val in self.node:
@@ -25,7 +25,7 @@ class Reduce(Node):
         self.is_reduced = True
 
     def next_pair(self):
-        self.reduce()
+        self._reduce()
         if not self.keys:
             raise StopIteration
         k = self.keys.pop(0)

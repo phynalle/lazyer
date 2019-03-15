@@ -13,7 +13,7 @@ class Differ(Node):
         self.excluded_keys = set()
         self.is_consumed = False
 
-    def consume(self):
+    def _consume(self):
         if self.is_consumed:
             return
         for node in self.nodes[1:]:
@@ -28,7 +28,7 @@ class Differ(Node):
         return pair
 
     def next_pair(self):
-        self.is_consumed()
+        self._consumed()
         pair = self.try_next_pair()
         while pair is None:
             pair = self.try_next_pair()

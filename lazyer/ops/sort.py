@@ -10,7 +10,7 @@ class Sort(Node):
         self.is_sorted = False
         self.current = None
 
-    def sort(self):
+    def _sort(self):
         if self.is_sorted:
             return
         unique_keys = set()
@@ -37,7 +37,7 @@ class Sort(Node):
         return Pair(key, heapq.heappop(values))
 
     def next_pair(self):
-        self.sort()
+        self._sort()
         pair = self.try_next_pair()
         while pair is None:
             pair = self.try_next_pair()

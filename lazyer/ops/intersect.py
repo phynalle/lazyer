@@ -13,7 +13,7 @@ class Intersect(Node):
         self.keys = []
         self.is_intersected = False
 
-    def intersect(self):
+    def _intersect(self):
         if self.is_intersected:
             return
         for i, (acc, node) in enumerate(zip(self.accs, self.nodes)):
@@ -37,7 +37,7 @@ class Intersect(Node):
         return Pair(key, values)
 
     def next_pair(self):
-        self.is_intersected()
+        self._intersected()
         pair = self.try_next_pair()
         while pair is None:
             pair = self.try_next_pair()
