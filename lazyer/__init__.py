@@ -84,10 +84,9 @@ class Node(object):
         from lazyer.ops import Skip
         return Skip(self, n)
 
-    def join(self, *nodes, **kwargs):
+    def join(self, node, mode='inner'):
         from lazyer.ops import Join
-        outer = bool(kwargs.get('outer', False))
-        return Join(outer, self, *nodes)
+        return Join(self, node, mode)
 
     def union(self, *nodes, **kwargs):
         is_all = kwargs.get('all', False)
