@@ -5,7 +5,7 @@ from lazyer import Node, Pair, no_init
 from lazyer.exceptions import DuplicatedKey, NodeException
 
 class Join(Node):
-    def __init__(self, left, right, mode):
+    def __init__(self, left, right, outer):
         self.left = left
         self.right = right
         self.left_init = no_init
@@ -13,28 +13,29 @@ class Join(Node):
         self.left_is_consumed = False
         self.left_vals = OrderedDict()
         self.gen_pair = iter(self.join_pair())
-        if mode == 'inner':
+        if outer == 'none':
             pass
-        elif mode == 'left_outer':
-            self.left_outer()
-        elif mode == 'right_outer':
-            self.right_outer()
-        elif mode == 'full':
-            self.full()
+        elif outer == 'left':
+            self.set_left()
+        elif outer == 'right':
+            self.set_right()
+        elif outer == 'full':
+            self.set_full()
         else:
-            raise NodeException('Unsupported mode')
+            raise NodeException('Unsupported outer mode')
 
-    def left_outer(self):
+    def set_left(self):
         self.right_init = None
         return self
 
-    def right_outer(self):
+    def set_right(self):
         self.left_init = None
         return self
 
-    def full(self):
-        self.set_left_outer()
-        self.set_right_outer()
+    def set_full(self):
+        self.set_left()
+        self.set_right()
+        return self
         return self
 
     def _consume_left(self):

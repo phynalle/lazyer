@@ -9,7 +9,6 @@ class Differ(Node):
         for node in nodes:
             assert isinstance(node, Node)
         self.nodes = nodes
-        self.accs = [{} for _ in nodes]
         self.excluded_keys = set()
         self.is_consumed = False
 

@@ -33,7 +33,7 @@ class Intersect(Node):
         for acc in self.accs:
             if key not in acc:
                 return None
-            values.append(acc.pop(key, None))
+            values.append(acc.pop(key))
         return Pair(key, values)
 
     def next_pair(self):
