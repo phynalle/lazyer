@@ -6,6 +6,8 @@ from lazyer.utils import call_unpacked, identity, make_flattened_str, print_pair
 class NoInitializer(object):
     pass
 
+no_init = NoInitializer
+
 class Pair(object):
     def __init__(self, key, value):
         self._key = key
@@ -58,7 +60,7 @@ class Node(object):
         from lazyer.ops import Unmap
         return Unmap(self)
 
-    def reduce(self, func, initializer=NoInitializer):
+    def reduce(self, func, initializer=no_init):
         from lazyer.ops import Reduce
         return Reduce(self, func, initializer)
 
@@ -116,8 +118,6 @@ class Node(object):
     def inspect(self, func=print_pair, interval=1):
         from lazyer.ops import Inspect
         return Inspect(self, func, interval)
-
-
 
     def get(self, collection=dict):
         if collection is dict:

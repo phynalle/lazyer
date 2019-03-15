@@ -1,5 +1,5 @@
 from six import viewkeys
-from lazyer import NoInitializer, Node, Pair
+from lazyer import no_init, Node, Pair
 
 class Reduce(Node):
     def __init__(self, node, func, initializer):
@@ -16,7 +16,7 @@ class Reduce(Node):
         for key, val in self.node:
             if key not in self.acc:
                 self.keys.append(key)
-                if self.initializer is NoInitializer:
+                if self.initializer is no_init:
                     self.acc[key] = val
                     continue
                 else:
