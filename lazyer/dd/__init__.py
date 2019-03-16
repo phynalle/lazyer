@@ -80,7 +80,7 @@ class Template(object):
     __sub__ = override_binary(operator.sub)
     __add__ = override_binary(operator.add)
     __mul__ = override_binary(operator.mul)
-    __truediv__ = override_binary(operator.div)
+    __truediv__ = override_binary(operator.truediv)
     __floordiv__ = override_binary(operator.floordiv)
     __mod__ = override_binary(operator.mod)
     __pow__ = override_binary(operator.pow)
