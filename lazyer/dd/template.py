@@ -74,9 +74,6 @@ class Template(object):
     __getitem__ = override_binary(operator.getitem)
     __contains__ = override_binary(operator.contains)
 
-    def nonzero(self, data):
-        return bool(self.make(data))
-
 
 class DataAccessTemplate(Template):
     def __init__(self, key, parent=None, filter_=None):
