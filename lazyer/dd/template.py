@@ -19,9 +19,9 @@ def apply_(func, *args, **kwargs):
     return ApplyTemplate(func, *args, **kwargs)
 
 
-def make(t, d):
+def make(t, d, ctx={}):
     if isinstance(t, Template):
-        return t.make(d)
+        return t.make(d, ctx)
     return t
 
 
@@ -38,10 +38,10 @@ def override_binary(op):
 
 
 class Template(object):
-    def __call__(self, data):
-        return self.make(data)
+    def __call__(self, data, ctx={}):
+        return self.make(data, ctx)
 
-    def make(self, data):
+    def make(self, data, ctx={}):
         raise NotImplemented
 
     def bind(self, func, *args, **kwargs):
@@ -87,7 +87,7 @@ class DataAccessTemplate(Template):
     def make(self, data, ctx={}):
         containers = (tuple, list, set)
         if self.parent is not None:
-            data = make(self.parent, data)
+            data = make(self.parent, data, ctx)
 
         data_type = type(data)
         assert issubclass(data_type, (dict, *containers))
@@ -100,7 +100,7 @@ class DataAccessTemplate(Template):
         if issubclass(val_type, containers):
             def generate():
                 for item in val:
-                    if self.filter is None or make(self.filter, item):
+                    if self.filter is None or make(self.filter, item, ctx):
                         yield item
             val = val_type(generate())
         return val
@@ -112,7 +112,15 @@ class ApplyTemplate(Template):
         self.args = args
         self.kwargs = kwargs
 
-    def make(self, data):
-        args = [make(arg, data) for arg in self.args]
-        kwargs = {k: make(arg, data) for k, w in viewitems(self.kwargs)}
+    def make(self, data, ctx={}):
+        args = [make(arg, data, ctx) for arg in self.args]
+        kwargs = {k: make(arg, data, ctx) for k, w in viewitems(self.kwargs)}
         return self.func(*args, **kwargs)
+
+
+class VariableTemplate(Template):
+    def __init__(self, var):
+        self.var = var
+
+    def make(self, data, ctx={}):
+        return ctx[self.var]

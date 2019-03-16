@@ -1,7 +1,7 @@
 import os
 import operator
 from lark import Lark, Transformer
-from lazyer.dd.template import DataAccessTemplate
+from lazyer.dd.template import DataAccessTemplate, VariableTemplate
 
 
 def load_parser():
@@ -51,6 +51,8 @@ def parse_expr(tree, parent_keyword=None):
         return s[1:-1]
     elif matches[0].data == 'keyword':
         return parse_keyword(matches[0], parent_keyword=parent_keyword)
+    elif matches[0].data == 'variable':
+        return VariableTemplate(matches[0].children[0].value)
 
 
 def parse_keyword(tree, parent_keyword=None):
