@@ -118,6 +118,10 @@ class Node(object):
         from lazyer.ops import Inspect
         return Inspect(self, func, interval)
 
+    def iterate(self):
+        from lazyer.ops import Iterate
+        return Iterate(self)
+
     def get(self, collection=dict):
         if collection is dict:
             return {k: v for k, v in self}
