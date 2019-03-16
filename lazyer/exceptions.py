@@ -13,3 +13,10 @@ class NotMapped(NodeException):
 class DuplicatedKey(NodeException):
     pass
 
+
+class TemplateException(Exception):
+    pass
+
+
+class EmptyTemplate(TemplateException):
+    pass

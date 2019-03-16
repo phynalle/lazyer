@@ -115,6 +115,15 @@ class ApplyTemplate(Template):
         return self.func(*args, **kwargs)
 
 
+class SkeletonTemplate(Template):
+    def __init__(self, templates):
+        assert isinstance(templates, (tuple, list))
+        self.templates = templates
+
+    def make(self, data, ctx={}):
+        return tuple(make(tpl, data, ctx=ctx) for tpl in self.templates)
+
+
 class VariableTemplate(Template):
     def __init__(self, var):
         self.var = var
