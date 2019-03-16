@@ -3,10 +3,13 @@ sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.par
 
 from lazyer.utils import call_unpacked, identity, make_flattened_str, print_pair, true
 
+
 class NoInitializer(object):
     pass
 
+
 no_init = NoInitializer
+
 
 class Pair(object):
     def __init__(self, key, value):
