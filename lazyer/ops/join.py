@@ -60,14 +60,14 @@ class Join(Node):
                 for left_val in left_vals:
                     yield Pair(key, (left_val, right_val))
             except KeyError:
-                if self.left_init is no_init:
+                if self.left_init is not no_init:
                     yield Pair(key, (self.left_init, right_val))
         if joins_left_outer:
             for key, left_vals in viewitems(self.left_vals):
                 if key in right_keys:
                     continue
                 for left_val in left_vals:
-                    yield Pair(key, (left_vals, self.right_init))
+                    yield Pair(key, (left_val, self.right_init))
 
     def next_pair(self):
         self._consume_left()
