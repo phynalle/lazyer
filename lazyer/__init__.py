@@ -92,13 +92,9 @@ class Node(object):
         return Join(self, node, outer)
 
     def union(self, *nodes, **kwargs):
-        is_all = kwargs.get('all', False)
-        chained = self
-        for node in nodes:
-            chained = chained.chain(node)
-            if not is_all:
-                chained = chained.unique()
-        return chained
+        if not kwargs.get('all', False):
+            nodes = (node.unique() for node in nodes)
+        return self.chain(*nodes)
 
     def intersect(self, *nodes):
         from lazyer.ops import Intersect
