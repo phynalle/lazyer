@@ -19,8 +19,10 @@ class Reduce(Node):
                 if self.initializer is no_init:
                     self.acc[key] = val
                     continue
-                else:
-                    self.acc[key] = self.initializer
+                default = self.initializer
+                if callable(default):
+                    default = default()
+                self.acc[key] = default
             self.acc[key] = self.func(self.acc[key], val)
         self.is_reduced = True
 
