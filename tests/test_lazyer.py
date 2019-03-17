@@ -1,4 +1,5 @@
 from builtins import zip
+import pytest
 from lazyer.exceptions import DuplicatedKey
 from lazyer.ops import Sink
 from lazyer.utils import swap
@@ -154,12 +155,8 @@ def test_intersect():
 def test_intersect_duplicated_key():
     a = sink_mapped('aba', (1, 2, 3), 3)
     b = sink_mapped('bab', (4, 5, 6), 3)
-    try:
+    with pytest.raises(DuplicatedKey):
         a.intersect(b).get()
-    except DuplicatedKey:
-        pass
-    else:
-        assert False
 
 
 def test_differ():
