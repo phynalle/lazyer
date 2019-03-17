@@ -20,8 +20,8 @@ def apply_(func, *args, **kwargs):
 
 
 def make(t, d, ctx={}):
-    if isinstance(t, Template):
-        return t.make(d, ctx)
+    if callable(t):
+        return t(d, ctx=ctx)
     return t
 
 

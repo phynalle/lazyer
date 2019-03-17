@@ -1,5 +1,8 @@
+from functools import wraps
+from six import viewitems
+
 from lazyer.dd import tdl
-from lazyer.dd.template import SkeletonTemplate
+from lazyer.dd.template import make, SkeletonTemplate
 from lazyer.exceptions import EmptyTemplate
 
 
@@ -27,3 +30,25 @@ def define_template(*args):
 
 
 _t = define_template
+
+
+class SelectElse(object):
+    pass
+
+
+else_ = SelectElse
+
+
+def select(key, switch):
+    key_tpl = _t(key)
+    switch = {k: _t(tpl) for k, tpl in viewitems(switch)}
+
+    @wraps(select)
+    def wrapper(data, ctx={}):
+        k = key_tpl(data, ctx)
+        if k in switch:
+            return make(switch[k], data, ctx)
+        if else_ in switch:
+            return make(switch[else_], data, ctx)
+        return None
+    return wrapper
