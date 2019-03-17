@@ -27,7 +27,7 @@ class Differ(Node):
         return pair
 
     def next_pair(self):
-        self._consumed()
+        self._consume()
         pair = self.try_next_pair()
         while pair is None:
             pair = self.try_next_pair()
