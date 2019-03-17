@@ -87,3 +87,8 @@ def make_flattened_str(val):
 
 def print_pair(key, val):
     print ('{}: {}'.format(key, val))
+
+
+def append(x, a):
+    x.append(a)
+    return x
