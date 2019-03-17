@@ -121,6 +121,10 @@ class Node(object):
         from lazyer.ops import Inspect
         return Inspect(self, func, interval)
 
+    def collect(self):
+        from lazyer.utils import append
+        return self.reduce(append, initializer=list).transform(tuple)
+
     def iterate(self):
         from lazyer.ops import Iterate
         return Iterate(self)
