@@ -7,7 +7,7 @@ from lazyer.dd.template import DataAccessTemplate, VariableTemplate
 def load_parser():
     filename = os.path.join(os.path.dirname(__file__), 'tdl.lark')
     with open(filename) as f:
-        return Lark(f.read(), start='keyword', parser='earley')
+        return Lark(f.read(), start='expr', parser='earley')
 
 
 PARSER = load_parser()
@@ -37,7 +37,7 @@ ops = {
 
 
 def parse(s):
-    return parse_keyword(PARSER.parse(s))
+    return parse_expr(PARSER.parse(s))
 
 
 def parse_expr(tree, parent_keyword=None):
