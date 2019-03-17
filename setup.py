@@ -7,4 +7,7 @@ setup(
     author = 'Gyeongwan Koh',
     author_email = 'gwkoh@nexon.co.kr',
     install_requires = [],
-    packages = find_packages())
+    packages = find_packages(),
+    package_data = {
+        'lazyer.dd': ['tdl.lark'],
+    })
