@@ -130,3 +130,11 @@ class VariableTemplate(Template):
 
     def make(self, data, ctx={}):
         return ctx[self.var]
+
+
+class FunctionTemplate(Template):
+    def __init__(self, func):
+        self.func = func
+
+    def make(self, data, ctx={}):
+        return self.func(data, ctx=ctx)

@@ -2,7 +2,7 @@ from functools import wraps
 from six import viewitems
 
 from lazyer.dd import tdl
-from lazyer.dd.template import make, SkeletonTemplate
+from lazyer.dd.template import FunctionTemplate, make, SkeletonTemplate, Template
 from lazyer.exceptions import EmptyTemplate
 
 
@@ -23,6 +23,10 @@ def define_template(*args):
             arg = define_keyword_template(arg)
         elif isinstance(arg, (tuple, list)):
             arg = define_template(*arg)
+        elif isinstance(arg, Template):
+            pass
+        elif callable(arg):
+            arg = FunctionTemplate(arg)
         templates.append(arg)
     if len(templates) == 1:
         return templates[0]
@@ -51,4 +55,4 @@ def select(key, switch):
         if else_ in switch:
             return make(switch[else_], data, ctx)
         return None
-    return wrapper
+    return _t(wrapper)
