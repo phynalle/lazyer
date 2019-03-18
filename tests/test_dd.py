@@ -43,5 +43,3 @@ def test_select():
     assert selector(mock2) == 'B'
     mock3 = {'id': 'c', 'a': 'A', 'b': 'B', 'c': 'C'}
     assert selector(mock3) == 'C'
-
-
