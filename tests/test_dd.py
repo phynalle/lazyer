@@ -38,7 +38,7 @@ def test_select():
     })
 
     mock1 = {'id': 'a', 'a': 'A', 'b': 'B', 'c': 'C'}
-    assert selector(mock1) == ('A', 'B')
+    assert selector.make(mock1) == ('A', 'B')
     mock2 = {'id': 'b', 'a': 'A', 'b': 'B', 'c': 'C'}
     assert selector(mock2) == 'B'
     mock3 = {'id': 'c', 'a': 'A', 'b': 'B', 'c': 'C'}
