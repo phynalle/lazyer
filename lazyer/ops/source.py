@@ -1,6 +1,6 @@
 from lazyer import Node, Pair
 
-class Sink(Node):
+class Source(Node):
     def __init__(self, iterable):
         self.iterable = iter(iterable)
 
