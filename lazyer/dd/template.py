@@ -87,7 +87,7 @@ class DataAccessTemplate(Template):
             data = make(self.parent, data, ctx)
 
         data_type = type(data)
-        assert issubclass(data_type, (dict, *containers))
+        assert issubclass(data_type, containers + (dict, ))
         if issubclass(data_type, containers):
             val = data_type(item[self.key] for item in data)
         else:
