@@ -108,6 +108,10 @@ class Node(object):
         from lazyer.ops import Sort
         return Sort(self)
 
+    def reverse(self):
+        from lazyer.ops import Reverse
+        return Reverse(self)
+
     def partition(self, n, func):
         from lazyer.ops import Partition
         partition = Partition(self, n, func)
