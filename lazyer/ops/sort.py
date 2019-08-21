@@ -19,6 +19,7 @@ class Sort(Node):
                 unique_keys.add(key)
                 self.keys.append(key)
             heapq.heappush(self.acc[key], val)
+        self.keys.sort()
         self.is_sorted = True
 
     def try_next_pair(self):
